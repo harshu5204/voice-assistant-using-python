@@ -1,7 +1,5 @@
 # voice-assistant-using-python
-Here me and my friend has made a project- voice assistant for course scripting language using python. I will explain in details which libraries i have used and why and their importance and i will also provide you the code and my report. 
-  
-  
+Here me and my friend has made a project- voice assistant for course scripting language using python. I will explain in details which libraries i have used and why and their importance and i will also provide you the code and my report.
   libraries:
     Speech Recognition Library:
         Purpose: Designed for speech recognition, this library supports various engines and APIs, both online and offline.
@@ -14,12 +12,10 @@ Here me and my friend has made a project- voice assistant for course scripting l
             Houndify API
             IBM Speech to Text
             Snowboy Hotword Detection (offline)
-
     PyAudio:
         Purpose: Provides Python bindings for PortAudio v19, enabling audio I/O on multiple platforms. Used for playing and recording audio in Python applications.
         Platforms: Compatible with GNU/Linux, Microsoft Windows, and Apple macOS.
         Requirement: Essential for microphone input. Version 0.2.11 or later is recommended to avoid known memory management bugs during microphone recording.
-
     PyWhatKit:
         Purpose: A versatile Python library with user-friendly features, especially popular for WhatsApp and YouTube automation.
         Features:
@@ -28,7 +24,6 @@ Here me and my friend has made a project- voice assistant for course scripting l
             YouTube Automation: Playing YouTube videos.
             Email Automation: Sending emails with HTML code.
             Easy-to-use: Requires no additional setup, and frequent updates include new features and bug fixes.
-
     Pyttsx3:
         Purpose: A text-to-speech conversion library in Python that works offline and is compatible with both Python 2 and 3.
         Usage: Invoke the pyttsx3.init() factory function to get a reference to a pyttsx3.Engine instance.
