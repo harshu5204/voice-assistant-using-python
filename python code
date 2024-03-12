@@ -1,0 +1,137 @@
+# Importing necessary libraries
+import speech_recognition as sr
+import pywhatkit
+import pyttsx3
+import datetime
+import webbrowser
+import wikipedia
+
+# Initializing text-to-speech engine
+engine = pyttsx3.init()
+voices = engine.getProperty('voices')
+engine.setProperty('voice', voices[1].id)  # Setting the voice to a female voice
+
+# Initializing the Speech Recognition library
+recognizer = sr.Recognizer()
+
+# Setting up variables
+currassistant = 1
+command = ''
+currcommand = ''
+
+# Function to handle the assistant's interaction
+def assistant():
+    go = True
+    count = 1
+
+    while go:
+        with sr.Microphone() as source:
+            # Clearing background noises
+            print("\n Clearing background noises...Please wait")
+
+            if count == 1:
+                # Initial interaction with the user
+                engine.say('\n How Can I Help You .... \n')
+                engine.runAndWait()
+                print('\n How Can I Help You ? \n')
+                count = count + 1
+            elif count == -1:
+                # Handling case when the assistant doesn't understand the user
+                engine.say('Sorry I was unable to understand!! Please try again .. ')
+                engine.runAndWait()
+                print('\n Sorry I was unable to understand!! Please try again .. \n')
+            else:
+                count = count + 1
+                engine.say('Have I heard and executed correctly?')
+                engine.runAndWait()
+
+                # Listening to the user's response
+                recognizer.adjust_for_ambient_noise(source, duration=0.5)
+                currenrec = recognizer.listen(source)
+
+                try:
+                    currcommand = recognizer.recognize_google(currenrec, language='en_US')
+                    currcommand = currcommand.lower()
+                    print('Your message:', format(currcommand))
+                except Exception as ex:
+                    print(ex)
+
+                # Responding based on user's response
+                if 'yes' in currcommand:
+                    engine.say("Yay")
+                elif 'no' in currcommand:
+                    engine.say("Sorry for the inconvenience.....")
+                    engine.runAndWait()
+                    engine.say('What to do next? ')
+                    engine.runAndWait()
+
+                    # Listening to the user's next command
+                    recognizer.adjust_for_ambient_noise(source, duration=0.5)
+                    recordedaudio = recognizer.listen(source)
+                    print('Done recording')
+
+                    try:
+                        command = recognizer.recognize_google(recordedaudio, language='en_US')
+                        command = command.lower()
+                        print('Your message: ', format(command))
+                    except Exception as ex:
+                        print(ex)
+
+                    # Performing actions based on user's command
+                    if 'lms' in command:
+                        # Opening LMS website
+                        c = 'Opening LMS'
+                        engine.say(c)
+                        engine.runAndWait()
+                        webbrowser.open('https://lms.nirmauni.ac.in/login/index.php')
+                    elif 'amazon' in command:
+                        # Opening Amazon website
+                        c = 'Opening Amazon'
+                        engine.say(c)
+                        engine.runAndWait()
+                        webbrowser.open('https://www.amazon.in/')
+                    elif 'google' in command:
+                        # Opening Google website
+                        c = 'Opening Google'
+                        engine.say(c)
+                        engine.runAndWait()
+                        webbrowser.open('www.google.com')
+                    # ... (other commands for different actions)
+                    elif 'exit' in command:
+                        # Exiting the assistant
+                        go = False
+                    elif 'about' in command:
+                        # Providing information from Wikipedia based on user's speech
+                        try:
+                            print('Printing your message...Please wait')
+                            text = recognizer.recognize_google(recordedaudio, language='en-US')
+                        except Exception as ex:
+                            print(ex)
+                        
+                        wikisearch = wikipedia.summary(text)
+                        val = wikisearch.split(".")
+                        engine.say(val[0])
+                        engine.runAndWait()
+                    else:
+                        count = -1
+
+# Main loop for user interaction
+while True:
+    print("\n")
+    print("---------------------------------------")
+    print("| |")
+    print("| 1 - Connect to Assistant |")
+    print("| 2 - Exit |")
+    print("| |")
+    print("--------------------------------------")
+    print("\n")
+
+    # Taking user input for menu options
+    userinput = int(input("Enter your input: "))
+
+    if userinput == 1:
+        # Connecting to the assistant
+        assistant()
+    elif userinput == 2:
+        # Exiting the program
+        break
