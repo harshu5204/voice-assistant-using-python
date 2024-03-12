@@ -2,7 +2,7 @@
 Here me and my friend has made a project- voice assistant for course scripting language using python. I will explain in details which libraries i have used and why and their importance and i will also provide you the code and my report. 
   
   
-  libraries:-
+  libraries:
     Speech Recognition Library:
         Purpose: Designed for speech recognition, this library supports various engines and APIs, both online and offline.
         Engine/API Support:
